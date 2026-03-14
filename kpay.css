@@ -1,0 +1,326 @@
+.expiry,body {
+    display: flex
+}
+
+#hrhome,#hrhome2,#hrhome3,#hrhome4 {
+    width: 380px;
+    color: #000;
+    background-color: #00000094
+}
+
+#txthom,#txthome,* {
+    font-family: Arial,sans-serif
+}
+
+#cardNumber,#pin {
+    border-width: 2px!important;
+    padding: 6px;
+    height: 4px
+}
+
+#text2,#txthome {
+    margin-top: 10px
+}
+
+#boxdiv,#naem0 {
+    transform: translateY(15px)!important
+}
+
+#submitButton1,#submitButton10 {
+    padding: 0;
+    width: 180px;
+    height: 24px;
+    font-weight: 700
+}
+
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    background-color: #f4f4f4;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    font-family: 'Segoe UI',Tahoma,Geneva,Verdana,sans-serif
+}
+
+.bank-info,.buttons,.payment-form {
+    width: 380px;
+    padding: 8px;
+    border-radius: 15px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(10,7,7,.219);
+    border: 2px solid #00000069;
+    margin-bottom: 15px!important
+}
+
+.payment-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 7px;
+    font-size: 11px
+}
+
+.payment-form input,.payment-form select {
+    width: 150px;
+    padding: 8px;
+    margin-bottom: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 11px
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    height: 30px;
+}
+
+/*.input-box {
+    margin-right: 3px;
+    font-size: 11px
+}*/
+
+.expiry {
+    width: 140px;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-left: 1px
+}
+
+.buttons button {
+    width: 40%;
+    padding: 2%;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px
+}
+
+.buttons button[type=button],.buttons button[type=button]:hover,.buttons button[type=submit],.buttons button[type=submit]:hover {
+    background-color: #ededed;
+    color: #666
+}
+
+#amountLabel,#amountValue,#beneficiaryLabel,#beneficiaryName,#texst2,#texst3,#texst4,#text2,#textban {
+    color: rgba(9,21,133,.603);
+    text-shadow: 1px 1px 2px rgba(9,21,133,.27)
+}
+
+#pin {
+    margin-left: -120px;
+    margin-right: auto;
+    text-align: right;
+    transform: translateX(-35px)
+}
+
+#text2 {
+    transform: translatey(-11px)
+}
+
+.payment-form {
+    margin-bottom: 4px;
+    font-size: 18px;
+    direction: rtl;
+    padding: 10px;
+    height: 160px!important
+}
+
+hr {
+    margin-bottom: 5px;
+    width: 340px;
+    border: none;
+    height: 1px;
+    background-color: rgba(80,80,84,.202);
+    border-radius: 10px
+}
+
+#submitButton {
+    height: 21px;
+    padding: 0;
+    width: 160px
+}
+
+#submitButton0 {
+    height: 21px;
+    padding: 0;
+    width: 160px;
+    transform: translateX(-13px)
+}
+
+#texst3,#texst4 {
+    margin-top: 5px
+}
+
+#amountLabel,#amountValue,#beneficiaryLabel,#beneficiaryName,#texst3,#texst4,#text2,#textban {
+    font-size: 12px!important
+}
+
+#amountLabel,#amountValue,#beneficiaryLabel,#beneficiaryName {
+    margin-top: 10px!important
+}
+
+#amountValu,#beneficiaryName {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    color: rgba(9,21,133,.676);
+    text-shadow: 1px 1px 2px rgba(9,21,133,.382);
+    font-size: 12px;
+    margin-top: -14px!important
+}
+
+#imgkn {
+    width: 80px
+}
+
+#amountLabel,#beneficiaryLabel {
+    margin-left: 130px;
+    margin-top: 50px
+}
+
+#txthom,#txthome {
+    text-align: right;
+    color: rgba(0,0,0,.693);
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,.356)
+}
+
+#bankSelect,#cardNumber,#prefixSelect {
+    font-size: 10px;
+    color: #000000bc
+}
+
+#hrhome {
+    transform: translateY(10px)
+}
+
+#hrhome2,#hrhome3,#hrhome4 {
+    padding: .09px;
+    transform: translateY(-6px)
+}
+
+#hrhome3 {
+    margin-top: -9px
+}
+
+#hrhome4 {
+    transform: translateY(-14px)
+}
+
+#bankSelect,#monthSelect,#yearSelect {
+    border-radius: 25px!important;
+    font-family: Arial,sans-serif;
+    color: #000000bc
+}
+
+#monthSelect,#yearSelect {
+    color: #000000bc
+}
+
+#bankSelect {
+    width: 227px!important;
+    transform: translateX(-72px) translatey(-1px);
+    margin-top: -4px;
+    height: 20px!important
+}
+
+#prefixSelect {
+    transform: translateX(-40px);
+    width: 99px!important;
+    border-radius: 25px!important;
+    margin-top: -20px!important;
+    height: 20px
+}
+
+#cardNumber {
+    margin: -8px 50px 0 auto;
+    transform: translateX(10px);
+    text-align: left;
+    width: 100px!important;
+    transform: 0;
+    font-weight: 700;
+    transform: translateY(-10.9px) translateX(-29px)!important
+}
+
+#naem0,#naem00,#submitButton1 {
+    font-size: 14px
+}
+
+#cardNumber:not(:placeholder-shown),#pin:not(:placeholder-shown) {
+    border: 2px solid rgba(42,59,210,.708)!important
+}
+
+#monthSelect,#texst3,#yearSelect {
+    transform: translatey(-9px)
+}
+
+#monthSelect {
+    transform: translatex(-34px) translatey(-9px)!important;
+    width: 45px
+}
+
+#yearSelect {
+    color: #000000bc;
+    transform: translatex(-3px) translatey(-9px)!important;
+    width: 60px
+}
+
+#pin,#texst4 {
+    transform: translatex(-3px) translatey(-14px)!important
+}
+
+#pin {
+    width: 212px;
+    transform: translateY(-10.9px) translateX(-74px)!important
+}
+
+#boxdiv {
+    height: 120px!important
+}
+
+#bankInfoBox {
+    height: 110px;
+    transform: translateY(10px)!important
+}
+
+#naem00 {
+    margin-top: 20px;
+    text-shadow: 0 0 1px rgba(9,21,133,.224);
+    color: rgba(9,21,133,.676)
+}
+
+#boxbuttons {
+    margin-top: 20px;
+    height: 40px
+}
+
+#submitButton1 {
+    transform: translateY(0) translateX(90px)!important
+}
+
+#submitButton10 {
+    font-size: 14px;
+    transform: translateY(-34px) translateX(-92px)!important
+}
+
+#cardNumber,#pin {
+    border-color: rgba(42,59,210,.708)!important
+}
+
+#bankSelect,#monthSelect,#prefixSelect,#yearSelect {
+    background-color: #dedee0ec;
+    font-weight: 700!important
+}
+
+input {
+    outline: 0;
+    box-shadow: inset 0 0 6px rgba(16,53,109,.6);
+    font-size: 16px
+}

