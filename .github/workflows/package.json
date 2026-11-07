@@ -1,0 +1,28 @@
+{
+  "name": "watania-poultry-telegram",
+  "version": "1.0.0",
+  "description": "Al Watania Poultry - Telegram Bot with SQLite Database",
+  "main": "telegram-bot.js",
+  "scripts": {
+    "start": "node telegram-bot.js",
+    "test": "node test-telegram-server.js",
+    "dev": "node telegram-bot.js"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "database",
+    "orders",
+    "poultry"
+  ],
+  "author": "Al Watania",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "sqlite3": "^5.1.7",
+    "dotenv": "^16.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

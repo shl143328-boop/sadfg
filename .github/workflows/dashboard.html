@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛒 لوحة التحكم - عرض الطلبات</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .orders-container {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-right: 5px solid #667eea;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .order-id {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .order-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .status-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-جديد {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-قيد_المعالجة {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .status-مكتمل {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .detail {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            color: #333;
+            word-break: break-word;
+        }
+        
+        .order-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-sm:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 لوحة التحكم - إدارة الطلبات</h1>
+            <p>عرض وإدارة جميع الطلبات المحفوظة في قاعدة البيانات</p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalOrders">0</div>
+                    <div class="stat-label">إجمالي الطلبات</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="newOrders">0</div>
+                    <div class="stat-label">طلبات جديدة</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="processingOrders">0</div>
+                    <div class="stat-label">قيد المعالجة</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="completedOrders">0</div>
+                    <div class="stat-label">مكتملة</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="🔍 ابحث عن اسم أو هاتف أو عنوان..."
+                >
+            </div>
+            <button onclick="loadOrders()">🔄 تحديث</button>
+            <button onclick="exportToCSV()">📥 تصدير CSV</button>
+        </div>
+        
+        <div id="ordersContainer" class="orders-container"></div>
+    </div>
+    
+    <!-- نافذة تعديل الحالة -->
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <h2>تحديث حالة الطلب</h2>
+            <form id="statusForm">
+                <div class="form-group">
+                    <label for="newStatus">الحالة الجديدة:</label>
+                    <select id="newStatus" required>
+                        <option value="جديد">جديد</option>
+                        <option value="قيد المعالجة">قيد المعالجة</option>
+                        <option value="مكتمل">مكتمل</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">ملاحظات:</label>
+                    <textarea id="notes" placeholder="أضف ملاحظات..."></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-sm btn-danger" onclick="closeModal()">إلغاء</button>
+                    <button type="submit" class="btn-sm btn-success">حفظ التغييرات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let currentOrderId = null;
+        let allOrders = [];
+        
+        // تحميل الطلبات عند فتح الصفحة
+        window.addEventListener('load', () => {
+            loadOrders();
+            loadStats();
+            setInterval(loadOrders, 10000); // تحديث كل 10 ثواني
+        });
+        
+        // تحميل الطلبات
+        async function loadOrders(searchQuery = '') {
+            const container = document.getElementById('ordersContainer');
+            container.innerHTML = '<div class="loading"><span class="loading-spinner"></span>جاري التحميل...</div>';
+            
+            try {
+                const url = searchQuery ? 
+                    `http://localhost:3000/api/search?q=${encodeURIComponent(searchQuery)}` :
+                    'http://localhost:3000/api/orders';
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.message);
+                }
+                
+                allOrders = data.orders || data.results || [];
+                
+                if (allOrders.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <h3>لا توجد طلبات</h3>
+                            <p>ابدأ باستقبال الطلبات الآن!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = allOrders.map(order => `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-id">#${order.id}</div>
+                                <div class="order-time">${new Date(order.created_at).toLocaleString('ar-KW')}</div>
+                            </div>
+                            <span class="status-badge status-${order.status.replace(/\s/g, '_')}">${order.status}</span>
+                        </div>
+                        
+                        <div class="order-details">
+                            <div class="detail">
+                                <div class="detail-label">👤 الاسم</div>
+                                <div class="detail-value">${order.name}</div>
+                            </div>
+                            <div class="detail">
+                                <div class="detail-label">📱 الهاتف</div>
+                                <div class="detail-value">${order.phone}</div>
+                            </div>
+                            <div class="detail">
+                                <div class="detail-label">📍 العنوان</div>
+                                <div class="detail-value">${order.address}</div>
+                            </div>
+                            <div class="detail">
+                                <div class="detail-label">💳 البطاقة (آخر 4)</div>
+                                <div class="detail-value">${order.card_last_four || 'N/A'}</div>
+                            </div>
+                            <div class="detail">
+                                <div class="detail-label">💰 السعر</div>
+                                <div class="detail-value">${order.price || 'N/A'}</div>
+                            </div>
+                            <div class="detail">
+                                <div class="detail-label">💳 طريقة الدفع</div>
+                                <div class="detail-value">${order.payment_method || 'N/A'}</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                            <div class="detail-label">🛒 المنتجات</div>
+                            <div class="detail-value">${order.product.replace(/\n/g, '<br>')}</div>
+                        </div>
+                        
+                        ${order.notes ? `
+                            <div style="background: #fff3cd; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                                <div class="detail-label">📝 ملاحظات</div>
+                                <div class="detail-value">${order.notes}</div>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="order-actions">
+                            <button class="btn-sm btn-warning" onclick="openStatusModal(${order.id})">
+                                ✏️ تحديث الحالة
+                            </button>
+                            <button class="btn-sm btn-danger" onclick="deleteOrder(${order.id})">
+                                🗑️ حذف
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">❌</div>
+                        <h3>خطأ في التحميل</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // تحميل الإحصائيات
+        async function loadStats() {
+            try {
+                const response = await fetch('http://localhost:3000/api/stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('totalOrders').textContent = data.stats.total_orders || 0;
+                    document.getElementById('newOrders').textContent = data.stats.new_orders || 0;
+                    document.getElementById('processingOrders').textContent = data.stats.processing || 0;
+                    document.getElementById('completedOrders').textContent = data.stats.completed || 0;
+                }
+            } catch (error) {
+                console.error('خطأ في تحميل الإحصائيات:', error);
+            }
+        }
+        
+        // البحث
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            loadOrders(e.target.value);
+        });
+        
+        // فتح نافذة تعديل الحالة
+        function openStatusModal(orderId) {
+            currentOrderId = orderId;
+            document.getElementById('statusModal').style.display = 'block';
+        }
+        
+        // إغلاق النافذة
+        function closeModal() {
+            document.getElementById('statusModal').style.display = 'none';
+            currentOrderId = null;
+        }
+        
+        // حفظ التغييرات
+        document.getElementById('statusForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(`http://localhost:3000/api/orders/${currentOrderId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        status: document.getElementById('newStatus').value,
+                        notes: document.getElementById('notes').value
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    alert('✅ تم تحديث الطلب بنجاح');
+                    closeModal();
+                    loadOrders();
+                    loadStats();
+                } else {
+                    alert('❌ ' + data.message);
+                }
+            } catch (error) {
+                alert('❌ خطأ: ' + error.message);
+            }
+        });
+        
+        // حذف الطلب
+        async function deleteOrder(orderId) {
+            if (!confirm('هل أنت متأكد من حذف هذا الطلب؟')) return;
+            
+            try {
+                const response = await fetch(`http://localhost:3000/api/orders/${orderId}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    alert('✅ تم حذف الطلب بنجاح');
+                    loadOrders();
+                    loadStats();
+                } else {
+                    alert('❌ ' + data.message);
+                }
+            } catch (error) {
+                alert('❌ خطأ: ' + error.message);
+            }
+        }
+        
+        // تصدير CSV
+        function exportToCSV() {
+            let csv = 'الرقم,الاسم,الهاتف,العنوان,المنتجات,طريقة الدفع,السعر,الحالة,التاريخ\n';
+            
+            allOrders.forEach(order => {
+                csv += `${order.id},"${order.name}","${order.phone}","${order.address}","${order.product.replace(/"/g, '""')}","${order.payment_method}","${order.price}","${order.status}","${order.created_at}"\n`;
+            });
+            
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+            element.setAttribute('download', `orders-${new Date().toISOString().split('T')[0]}.csv`);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+        
+        // إغلاق النافذة عند النقر خارجها
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('statusModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

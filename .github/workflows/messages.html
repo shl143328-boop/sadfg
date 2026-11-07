@@ -1,0 +1,1024 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>رسائل المستخدمين الجدد</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap");
+    
+    :root {
+      --green: #0b4639;
+      --mint: #e8f6ed;
+      --accent: #05ad6b;
+      --bg: #f7fbf2;
+      --line: #e5e9e3;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Readex Pro", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #1d2823;
+    }
+
+    .top {
+      height: 60px;
+      background: var(--green);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 0 max(22px, calc((100% - 1460px) / 2));
+      font-size: 12px;
+    }
+
+    .logo {
+      width: 180px;
+      height: 56px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      padding: 3px;
+    }
+
+    .login {
+      white-space: nowrap;
+    }
+
+    .login:before {
+      content: "●";
+      color: #fff;
+      margin-left: 8px;
+    }
+
+    .cart-link {
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      font-size: 12px;
+      margin-left: auto;
+    }
+
+    .cart-link strong {
+      display: inline-grid;
+      place-items: center;
+      min-width: 22px;
+      height: 22px;
+      margin-right: 4px;
+      background: #f49a25;
+      border-radius: 50%;
+      font-size: 11px;
+    }
+
+    nav {
+      height: 56px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: 0 2px 8px #183c2c0d;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    nav a {
+      color: #17241f;
+      text-decoration: none;
+      padding: 11px 26px;
+      white-space: nowrap;
+    }
+
+    nav a.active {
+      background: var(--mint);
+      color: #009c5d;
+      border-radius: 9px;
+    }
+
+    .page {
+      width: min(1460px, 100%);
+      margin: auto;
+      padding: 0 22px 40px;
+    }
+
+    .promo {
+      height: 96px;
+      background: #e6f5e4;
+      border-radius: 0 0 18px 18px;
+      margin-bottom: 38px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 0 0 40px;
+      text-align: right;
+      color: #18221e;
+    }
+
+    .add-message-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 8px #183c2c0d;
+    }
+
+    .add-message-section h2 {
+      margin-top: 0;
+      color: var(--green);
+      font-size: 18px;
+      text-align: right;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #18221e;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-family: "Readex Pro", sans-serif;
+      font-size: 13px;
+      text-align: right;
+      background: #fff;
+      color: #1f2925;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .submit-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s;
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      background: #049852;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .submit-btn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      text-align: right;
+      font-size: 13px;
+      display: none;
+    }
+
+    .alert.show {
+      display: block;
+    }
+
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    .delete-btn {
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      transition: background 0.2s;
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+    }
+
+    .messages-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .message-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 8px #183c2c0d;
+      border-right: 4px solid var(--accent);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .message-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px #183c2c1a;
+    }
+
+    .message-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      justify-content: flex-end;
+    }
+
+    .country-flag {
+      font-size: 24px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex: 1;
+    }
+
+    .username {
+      font-weight: 600;
+      color: #18221e;
+      font-size: 14px;
+    }
+
+    .country-name {
+      font-size: 12px;
+      color: #77817b;
+    }
+
+    .message-content {
+      background: var(--mint);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+      text-align: right;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #1f2925;
+    }
+
+    .message-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #77817b;
+      margin-bottom: 12px;
+    }
+
+    .timestamp {
+      order: 2;
+    }
+
+    .unread-badge {
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .telegram-btn {
+      background: #0088cc;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+      text-decoration: none;
+      margin-left: 8px;
+    }
+
+    .telegram-btn:hover {
+      background: #006ba3;
+    }
+
+    .telegram-btn:active {
+      transform: scale(0.98);
+    }
+
+    .telegram-btn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    .telegram-btn.sending::after {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 6px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .source {
+      background: var(--mint);
+      color: #009c5d;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .unread-section {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid var(--line);
+    }
+
+    .unread-section h2 {
+      text-align: center;
+      color: var(--accent);
+      font-size: 18px;
+      margin: 0 0 20px;
+    }
+
+    .message-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .sound-toggle {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(5, 173, 107, 0.3);
+      transition: all 0.2s;
+      z-index: 100;
+    }
+
+    .sound-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(5, 173, 107, 0.4);
+    }
+
+    .sound-toggle:active {
+      transform: scale(0.95);
+    }
+
+    .sound-toggle.muted {
+      background: #999;
+    }
+
+    @media (max-width: 700px) {
+      .top {
+        height: auto;
+        min-height: 60px;
+        padding: 8px 12px;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        order: 1;
+        width: 130px;
+      }
+
+      .cart-link {
+        margin-left: auto;
+      }
+
+      nav {
+        overflow: auto;
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 0 10px;
+      }
+
+      nav a {
+        font-size: 11px;
+        padding: 10px 13px;
+      }
+
+      .message-card {
+        padding: 14px;
+      }
+
+      .message-header {
+        gap: 10px;
+      }
+
+      .country-flag {
+        font-size: 20px;
+        width: 28px;
+        height: 28px;
+      }
+
+      .username {
+        font-size: 13px;
+      }
+
+      .country-name {
+        font-size: 11px;
+      }
+
+      .message-content {
+        font-size: 12px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .sound-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        bottom: 20px;
+        left: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top">
+      <span class="login">تسجيل الدخول</span>
+      <img class="logo" src="assets/photos/home-logo.png" alt="الوطنية للدواجن">
+      <a class="cart-link" href="cart.html">🛒 السلة <strong>0</strong></a>
+    </div>
+    <nav>
+      <a href="index.html">منتجات الدجاج الطازج</a>
+      <a href="index.html">منتجات الدجاج المجمد</a>
+      <a href="index.html">دجاج متبل</a>
+      <a href="index.html">سهل التحضير</a>
+      <a href="index.html">البيض</a>
+      <a class="active" href="messages.html">رسائل المستخدمين</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <div class="promo"></div>
+    <h1>رسائل المستخدمين الجدد</h1>
+
+    <button class="sound-toggle" id="soundToggle" title="تشغيل/إيقاف الأصوات">🔊</button>
+
+    <div class="add-message-section">
+      <h2>إضافة رسالة جديدة</h2>
+      <div class="alert" id="alertMessage"></div>
+      <form id="addMessageForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="username">اسم المستخدم *</label>
+            <input type="text" id="username" name="username" required placeholder="أدخل اسم المستخدم">
+          </div>
+          <div class="form-group">
+            <label for="country">الدولة *</label>
+            <select id="country" name="country" required>
+              <option value="">اختر الدولة</option>
+              <option value="US">الولايات المتحدة 🇺🇸</option>
+              <option value="KW">الكويت 🇰🇼</option>
+              <option value="JO">الأردن 🇯🇴</option>
+              <option value="SA">السعودية 🇸🇦</option>
+              <option value="AE">الإمارات 🇦🇪</option>
+              <option value="EG">مصر 🇪🇬</option>
+              <option value="QA">قطر 🇶🇦</option>
+              <option value="BH">البحرين 🇧🇭</option>
+              <option value="OM">عمان 🇴🇲</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">الرسالة *</label>
+          <textarea id="message" name="message" required placeholder="أدخل نص الرسالة"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="source">المصدر *</label>
+            <select id="source" name="source" required>
+              <option value="">اختر المصدر</option>
+              <option value="الصفحة الرئيسية">الصفحة الرئيسية</option>
+              <option value="صفحة المنتجات">صفحة المنتجات</option>
+              <option value="صفحة السلة">صفحة السلة</option>
+              <option value="صفحة الدفع">صفحة الدفع</option>
+              <option value="أخرى">أخرى</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="time">الوقت (تلقائي)</label>
+            <input type="text" id="time" name="time" disabled readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sendToTelegram">
+              <input type="checkbox" id="sendToTelegram" name="sendToTelegram" checked>
+              إرسال مباشر للتيليجرام
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">💾 حفظ الرسالة</button>
+      </form>
+    </div>
+
+    <div class="messages-container" id="messagesContainer"></div>
+  </main>
+
+  <script>
+    // Sound Management System
+    class SoundManager {
+      constructor() {
+        this.isMuted = localStorage.getItem('soundMuted') === 'true';
+        this.audioContext = null;
+        this.initToggle();
+      }
+
+      initToggle() {
+        const toggle = document.getElementById('soundToggle');
+        if (!toggle) return;
+        
+        this.updateToggleIcon();
+        toggle.addEventListener('click', () => this.toggleMute());
+      }
+
+      updateToggleIcon() {
+        const toggle = document.getElementById('soundToggle');
+        if (!toggle) return;
+        
+        if (this.isMuted) {
+          toggle.textContent = '🔇';
+          toggle.classList.add('muted');
+        } else {
+          toggle.textContent = '🔊';
+          toggle.classList.remove('muted');
+        }
+      }
+
+      toggleMute() {
+        this.isMuted = !this.isMuted;
+        localStorage.setItem('soundMuted', this.isMuted);
+        this.updateToggleIcon();
+      }
+
+      play(type) {
+        if (this.isMuted) return;
+        
+        try {
+          if (!this.audioContext) {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          }
+
+          const ctx = this.audioContext;
+          const now = ctx.currentTime;
+
+          switch (type) {
+            case 'send':
+              this.playSendSound(ctx, now);
+              break;
+            case 'success':
+              this.playSuccessSound(ctx, now);
+              break;
+            case 'error':
+              this.playErrorSound(ctx, now);
+              break;
+          }
+        } catch (error) {
+          console.error('Sound error:', error);
+        }
+      }
+
+      playSendSound(ctx, now) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(600, now + 0.1);
+        
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+        
+        osc.start(now);
+        osc.stop(now + 0.1);
+      }
+
+      playSuccessSound(ctx, now) {
+        const notes = [700, 900, 1100];
+        
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.3, now + i * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.1);
+          
+          osc.start(now + i * 0.1);
+          osc.stop(now + i * 0.1 + 0.1);
+        });
+      }
+
+      playErrorSound(ctx, now) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.frequency.setValueAtTime(300, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.15);
+        
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        
+        osc.start(now);
+        osc.stop(now + 0.15);
+      }
+    }
+
+    const soundManager = new SoundManager();
+
+    const countriesData = {
+      'US': { name: 'الولايات المتحدة', flag: '🇺🇸' },
+      'KW': { name: 'الكويت', flag: '🇰🇼' },
+      'JO': { name: 'الأردن', flag: '🇯🇴' },
+      'SA': { name: 'السعودية', flag: '🇸🇦' },
+      'AE': { name: 'الإمارات', flag: '🇦🇪' },
+      'EG': { name: 'مصر', flag: '🇪🇬' },
+      'QA': { name: 'قطر', flag: '🇶🇦' },
+      'BH': { name: 'البحرين', flag: '🇧🇭' },
+      'OM': { name: 'عمان', flag: '🇴🇲' }
+    };
+
+    // Telegram Configuration
+    const TELEGRAM_BOT_TOKEN = '9216716866:AAGGlEtWbhEiryHQoLVMFJyzd-a23QJxTGU';
+    const TELEGRAM_CHAT_ID = '7714340953';
+
+    const defaultMessages = [
+      {
+        id: 1,
+        username: 'مستخدم جديد',
+        country: 'US',
+        content: 'منتجاتكم ممتازة وخدمتكم رائعة',
+        time: '10:21 ص',
+        source: 'الصفحة الرئيسية',
+        isUnread: false,
+        sentToTelegram: true
+      },
+      {
+        id: 2,
+        username: 'مستخدم جديد',
+        country: 'KW',
+        content: 'شكراً على التعامل السريع والمحترف',
+        time: '10:23 ص',
+        source: 'الصفحة الرئيسية',
+        isUnread: false,
+        sentToTelegram: true
+      },
+      {
+        id: 3,
+        username: 'مستخدم قديم',
+        country: 'JO',
+        content: 'أفضل جودة وأسعار منافسة جداً',
+        time: '10:32 ص',
+        source: 'الصفحة الرئيسية',
+        isUnread: true,
+        sentToTelegram: false
+      },
+      {
+        id: 4,
+        username: 'مستخدم جديد',
+        country: 'KW',
+        content: 'التوصيل سريع جداً والمنتج طازج',
+        time: '10:44 ص',
+        source: 'الصفحة الرئيسية',
+        isUnread: true,
+        sentToTelegram: false
+      }
+    ];
+
+    function getCurrentTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const period = now.getHours() >= 12 ? 'م' : 'ص';
+      return `${hours}:${minutes} ${period}`;
+    }
+
+    function getStoredMessages() {
+      const stored = localStorage.getItem('userMessages');
+      if (stored) {
+        return JSON.parse(stored);
+      }
+      return defaultMessages;
+    }
+
+    function saveMessages(messages) {
+      localStorage.setItem('userMessages', JSON.stringify(messages));
+    }
+
+    function showAlert(message, type = 'info') {
+      const alertDiv = document.getElementById('alertMessage');
+      alertDiv.textContent = message;
+      alertDiv.className = `alert alert-${type} show`;
+      setTimeout(() => {
+        alertDiv.classList.remove('show');
+      }, 5000);
+    }
+
+    async function sendToTelegram(message) {
+      const country = countriesData[message.country];
+      const telegramText = `📢 رسالة جديدة من مستخدم:\n\n👤 الاسم: ${message.username}\n🌍 البلد: ${country ? country.name : message.country}\n📝 الرسالة: ${message.content}\n📄 المصدر: ${message.source}\n⏰ الوقت: ${message.time}`;
+
+      try {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: telegramText,
+            parse_mode: 'HTML'
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Telegram API error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (data.ok) {
+          return true;
+        } else {
+          throw new Error(data.description || 'Unknown error');
+        }
+      } catch (error) {
+        console.error('Telegram send error:', error);
+        throw error;
+      }
+    }
+
+    function renderMessages() {
+      const container = document.getElementById('messagesContainer');
+      const allMessages = getStoredMessages();
+      const readMessages = allMessages.filter(m => !m.isUnread);
+      const unreadMessages = allMessages.filter(m => m.isUnread);
+
+      let html = '';
+
+      readMessages.forEach(msg => {
+        html += createMessageHTML(msg);
+      });
+
+      if (unreadMessages.length > 0) {
+        html += '<div class="unread-section">';
+        html += `<h2>الرسائل غير المقروءة</h2>`;
+        unreadMessages.forEach(msg => {
+          html += createMessageHTML(msg, true);
+        });
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
+
+      document.querySelectorAll('.telegram-btn').forEach(btn => {
+        btn.addEventListener('click', handleTelegramSend);
+      });
+
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', handleDelete);
+      });
+    }
+
+    function createMessageHTML(msg, isUnread = false) {
+      const country = countriesData[msg.country];
+      const countryInfo = country ? `${country.flag} ${country.name}` : msg.country;
+      const telegramStatus = msg.sentToTelegram ? '✓ مُرسلة' : '○ لم ترسل';
+
+      return `
+        <div class="message-card" data-message-id="${msg.id}">
+          <div class="message-header">
+            <div class="user-info">
+              <span class="username">${msg.username}</span>
+              <span class="country-name">${countryInfo}</span>
+            </div>
+            <div class="country-flag">${country ? country.flag : '🌍'}</div>
+          </div>
+          <div class="message-content">
+            ${msg.content}
+          </div>
+          <div class="message-footer">
+            <span class="source">📄 ${msg.source}</span>
+            <span class="timestamp">${msg.time}</span>
+            ${isUnread ? '<span class="unread-badge">جديد</span>' : ''}
+          </div>
+          <div style="text-align: left; font-size: 11px; color: #77817b; margin-bottom: 10px;">
+            ${telegramStatus}
+          </div>
+          <div class="message-actions">
+            <button class="telegram-btn" data-message-id="${msg.id}" title="أرسل إلى تيليجرام">
+              ✈️ أرسل للتيليجرام
+            </button>
+            <button class="delete-btn" data-message-id="${msg.id}" title="حذف الرسالة">
+              🗑️ حذف
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    async function handleTelegramSend(e) {
+      const messageId = parseInt(e.currentTarget.dataset.messageId);
+      const messages = getStoredMessages();
+      const message = messages.find(m => m.id === messageId);
+      const btn = e.currentTarget;
+
+      if (!message) return;
+
+      soundManager.play('send');
+      btn.disabled = true;
+      btn.classList.add('sending');
+      btn.textContent = '⏳ جاري الإرسال...';
+
+      try {
+        await sendToTelegram(message);
+        
+        message.sentToTelegram = true;
+        saveMessages(messages);
+        renderMessages();
+        
+        soundManager.play('success');
+        showAlert('✓ تم إرسال الرسالة للتيليجرام بنجاح!', 'success');
+      } catch (error) {
+        console.error('Error:', error);
+        
+        soundManager.play('error');
+        showAlert(`✗ خطأ في الإرسال: ${error.message}`, 'error');
+        btn.disabled = false;
+        btn.classList.remove('sending');
+        btn.textContent = '✈️ أرسل للتيليجرام';
+      }
+    }
+
+    function handleDelete(e) {
+      const messageId = parseInt(e.currentTarget.dataset.messageId);
+      if (confirm('هل أنت متأكد من حذف هذه الرسالة؟')) {
+        const messages = getStoredMessages();
+        const filtered = messages.filter(m => m.id !== messageId);
+        saveMessages(filtered);
+        renderMessages();
+        showAlert('✓ تم حذف الرسالة', 'success');
+      }
+    }
+
+    document.getElementById('addMessageForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const messages = getStoredMessages();
+      const maxId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) : 0;
+
+      const newMessage = {
+        id: maxId + 1,
+        username: document.getElementById('username').value,
+        country: document.getElementById('country').value,
+        content: document.getElementById('message').value,
+        time: document.getElementById('time').value,
+        source: document.getElementById('source').value,
+        isUnread: true,
+        sentToTelegram: false
+      };
+
+      let sentToTelegram = false;
+      const shouldSendToTelegram = document.getElementById('sendToTelegram').checked;
+
+      if (shouldSendToTelegram) {
+        const submitBtn = document.querySelector('.submit-btn');
+        
+        soundManager.play('send');
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ جاري الإرسال...';
+
+        try {
+          await sendToTelegram(newMessage);
+          newMessage.sentToTelegram = true;
+          sentToTelegram = true;
+          
+          soundManager.play('success');
+          showAlert('✓ تم حفظ الرسالة وإرسالها للتيليجرام بنجاح!', 'success');
+        } catch (error) {
+          console.error('Error sending to Telegram:', error);
+          
+          soundManager.play('error');
+          showAlert(`✓ تم حفظ الرسالة لكن حدث خطأ في الإرسال: ${error.message}`, 'error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = '💾 حفظ الرسالة';
+        }
+      } else {
+        soundManager.play('send');
+        showAlert('✓ تم حفظ الرسالة في قاعدة البيانات', 'success');
+      }
+
+      messages.push(newMessage);
+      saveMessages(messages);
+
+      this.reset();
+      updateTimeField();
+      renderMessages();
+
+      const submitBtn = document.querySelector('.submit-btn');
+      submitBtn.disabled = false;
+      submitBtn.textContent = '💾 حفظ الرسالة';
+    });
+
+    function updateTimeField() {
+      document.getElementById('time').value = getCurrentTime();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateTimeField();
+      renderMessages();
+    });
+  </script>
+</body>
+</html>
