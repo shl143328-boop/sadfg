@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>سلة المشتريات</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap");
+    *{box-sizing:border-box;font-family:"Readex Pro",sans-serif}body{margin:0;background:#f5faf3;color:#1d2923}
+    .top{height:60px;background:#0b4639;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px}.logo{height:52px;width:150px;object-fit:contain;background:#fff;border-radius:0 0 8px 8px;padding:3px}.back{color:#fff;text-decoration:none;font-size:13px}
+    main{width:min(760px,100%);margin:28px auto;padding:0 16px 40px}h1{font-size:25px;margin:0 0 22px}.card{background:#fff;border:1px solid #e1e9e2;border-radius:14px;padding:18px;box-shadow:0 12px 28px rgba(18,53,44,.07)}#empty{color:#66736b;text-align:center;padding:32px 0}.item{display:flex;align-items:center;gap:14px;border-bottom:1px solid #edf1ed;padding:12px 0}.item:last-child{border-bottom:0}.item-name{flex:1;font-size:13px}.item-qty{color:#07865a;font-size:12px}.item-price{font-weight:700;color:#087443;font-size:13px}.total{display:flex;justify-content:space-between;border-top:1px solid #dfe8e1;margin-top:12px;padding-top:18px;font-size:17px;font-weight:700}.total strong{color:#087443}.continue{display:flex;align-items:center;justify-content:center;height:48px;background:#00a967;color:#fff;border-radius:7px;text-decoration:none;font-weight:700;margin-top:20px}.continue.disabled{opacity:.45;pointer-events:none}
+  </style>
+</head>
+<body>
+  <header class="top">
+  <meta charset="utf-8">
+<a class="back" href="index.html">← العودة للمتجر</a><img class="logo" src="assets/photos/home-logo.png" alt="الوطنية للدواجن"><span>سلة المشتريات</span></header>
+  <main><h1>سلة المشتريات</h1><section class="card"><div id="items"></div><div id="empty">السلة فارغة، أضف منتجات من المتجر أولًا.</div><div class="total"><span>الإجمالي</span><strong id="total">0.000 د.ك</strong></div><a class="continue disabled" id="continue" href="address.html">متابعة إلى العنوان</a></section></main>
+  <script>
+    const itemsElement=document.getElementById("items"),emptyElement=document.getElementById("empty"),totalElement=document.getElementById("total"),continueElement=document.getElementById("continue");
+    let items=[];try{items=JSON.parse(sessionStorage.getItem("cartSummary")||"[]")}catch(error){items=[]}
+    const validItems=Array.isArray(items)?items.filter(item=>item&&item.qty>0):[];
+    if(validItems.length){emptyElement.style.display="none";continueElement.classList.remove("disabled")}
+    let total=0;
+    validItems.forEach(item=>{const row=document.createElement("div");row.className="item";const subtotal=Number(item.subtotal)||0;total+=subtotal;row.innerHTML=`<span class="item-name">${String(item.name||"منتج")}</span><span class="item-qty">الكمية: ${Number(item.qty)||0}</span><span class="item-price">${subtotal.toFixed(3)} د.ك</span>`;itemsElement.appendChild(row)});
+    totalElement.textContent=`${total.toFixed(3)} د.ك`;
+  </script>
+</body>
+</html>

